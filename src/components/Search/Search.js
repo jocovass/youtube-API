@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/core';
+import youtube from '../../axios';
 
 const formStyle = css`
     width: 25rem;
@@ -11,14 +12,37 @@ const inputStyle = css`
     padding: .2rem 1rem;
 `;
 
-const Search = () => (
-    <form css={formStyle}>
+const Search = () => {
+    const [value, setValue] = useState('');
+
+    const onChangeHandler = (event) => {
+        setValue(event.target.value);
+    }
+
+    const sumbitHandler = (event) => {
+        event.preventDefault();
+        youtube.get('/search', {
+                params: {
+                    part: 'snippet',
+                    maxResults: 5,
+                    key: process.env.APIKEY,
+                    q: value
+                }
+        })
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err));
+    }
+    return (
+    <form css={formStyle}
+          onSubmit={sumbitHandler}>
         <input id="search" 
                type="text" 
-               placeholder="Search videos on youtube"
+               placeholder="Search videos on youtube..."
                aria-label="Search videos on youtube" 
-               css={inputStyle} />
-    </form>
-);
+               css={inputStyle}
+               value={value}
+               onChange={onChangeHandler} />
+    </form>);
+};
 
 export default Search;

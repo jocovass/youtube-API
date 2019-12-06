@@ -20,8 +20,10 @@ class Header extends Component {
                 <Logo />
                 <Search />
                 <Navigation />
-            </header>);
-    };
+            </header>
+        
+        );
+    }
 }
 
 export default Header;

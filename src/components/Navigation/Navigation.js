@@ -7,13 +7,22 @@ const btnStyle = css`
     color: #fff;
     font-size: 1.1rem;
     text-transform: uppercase;
+    display: inline-block;
+    padding: .3rem .6rem;
+    border-radius: 4px;
 
     &:hover {
-        text-decoration: underline;
+        background-color: rgba(255,255,255, .4);
+        color: #000;
+        box-shadow: 0 5px 10px rgba(0,0,0,.3);
+    }
+
+    &:active {
+        transform: translateY(1px);
     }
 
     &:not(:last-of-type) {
-        margin-right: 2rem;
+        margin-right: 1rem;
     }
 `;
 
