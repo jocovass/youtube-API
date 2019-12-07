@@ -10,6 +10,7 @@ const btnStyle = css`
     display: inline-block;
     padding: .3rem .6rem;
     border-radius: 4px;
+    transition: all .15s ease-in-out;
 
     &:hover {
         background-color: rgba(255,255,255, .4);

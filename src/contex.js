@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
-export const hasError = {
-    error: false
+export const app = {
+    error: false,
+    errorMessage: null,
 };
 
-export default createContext(hasError);
+export default createContext(app);

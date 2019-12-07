@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { navigate }  from '@reach/router'; 
 import { css } from '@emotion/core';
 import youtube from '../../axios';
+import AppContext from '../../contex';
 
 const formStyle = css`
     width: 25rem;
@@ -14,6 +16,7 @@ const inputStyle = css`
 
 const Search = () => {
     const [value, setValue] = useState('');
+    const appContext = useContext(AppContext);
 
     const onChangeHandler = (event) => {
         setValue(event.target.value);
@@ -25,12 +28,17 @@ const Search = () => {
                 params: {
                     part: 'snippet',
                     maxResults: 5,
-                    key: process.env.APIKEY,
+                    key: process.env.APIKE,
                     q: value
                 }
         })
         .then(resp => console.log(resp))
-        .catch(err => console.log(err));
+        .catch(err => {
+            const errorCode = err.message.slice(-3);
+            appContext.setError(errorCode);
+            appContext.setErrorMessage(err.message);
+            navigate('/error');
+        });
     }
     return (
     <form css={formStyle}
