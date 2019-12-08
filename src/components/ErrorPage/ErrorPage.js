@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { navigate } from '@reach/router';
 import { css } from '@emotion/core';
-import AppContext from '../../contex';
+import AppContext from '../../context/appContext';
 import sprite from '../../img/sprite.svg'
 
 const errorStyle = css`

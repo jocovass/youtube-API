@@ -31,11 +31,11 @@ const Navigation = () => {
     return (
         <nav>
             <Link to="/"
-                  css={btnStyle}>
+                css={btnStyle}>
                 Home
             </Link>
             <Link to="/likes"
-                  css={btnStyle}>
+                css={btnStyle}>
                 Likes
             </Link>
         </nav>
