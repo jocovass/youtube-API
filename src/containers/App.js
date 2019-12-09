@@ -18,10 +18,15 @@ class App extends Component {
         this.setPlaylist = (list) => {
             this.setState({ videos: list });
         };
+        this.setCurrentVideo = (video) => {
+            this.setState({ currentVideo: video });
+        };
         this.state = {
             error: app.error,
             errorMessage: app.errerMessage,
             videos: search.videos,
+            currentVideo: search.currentVideo,
+            setCurrentVideo: this.setCurrentVideo,
             setPlaylist: this.setPlaylist,
             setError: this.setError,
             setErrorMessage: this.setErrorMessage,
@@ -35,6 +40,8 @@ class App extends Component {
                 <SearchContext.Provider value={{
                     videos: this.state.videos,
                     setPlaylist: this.state.setPlaylist,
+                    currentVideo: this.state.currentVideo,
+                    setCurrentVideo: this.state.setCurrentVideo,
                 }}>
                     <Header />
                     <Router>

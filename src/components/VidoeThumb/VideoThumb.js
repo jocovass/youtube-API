@@ -37,25 +37,17 @@ function formTitle(title) {
 };
 
 function formDesc(desc) {
-    const descArray = desc.split(' ');
-    const newdesc = descArray.reduce((acc, val) => {
-        if (acc.length < 60) {
-            if (acc.length != 0) {
-                acc += ' ';
-            }
-            acc += val;
-        }
-        return acc;
-    }, '');
-
+    const newdesc = desc.slice(0, 31);
     return `${newdesc} ...`;
 };
 
-const VideoThumb = (props) => {
-    const { video } = props;
-    console.log('video');
+const VideoThumb = ({ video, setCurrentVideo }) => {
     return (
-        <div css={thumbStyle}>
+        <div css={thumbStyle} 
+             onKeyPress={setCurrentVideo}
+             onClick={setCurrentVideo}
+             tabIndex='-1'
+             role='button'>
             <div className="video-img">
                 <img alt={video.title} 
                      src={video.thumbnail} 
@@ -64,6 +56,7 @@ const VideoThumb = (props) => {
             </div>
             <div className="video-text">
                 <h3>{formTitle(video.title)}</h3>
+                <p>{formDesc(video.description)}</p>
             </div>
         </div>
     )

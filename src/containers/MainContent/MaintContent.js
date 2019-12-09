@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { css } from '@emotion/core';
 import PlayList from '../../components/PlayList/PlayList';
+import VideoPlayer  from '../../components/VideoPlayer/VideoPlayer';
 
 const mainStyle = css`
     width: 95%;
@@ -17,7 +18,7 @@ class MaintContent extends Component {
 
         return (
             <main css={mainStyle}>
-                <div style={{backgroundColor: 'orangered', height: '250px', flexBasis: '63%'}}>VideoPlayer</div>
+                <VideoPlayer />
                 <PlayList />
             </main>
         )
