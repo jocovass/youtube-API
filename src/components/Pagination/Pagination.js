@@ -19,7 +19,7 @@ const paginationStyle = css`
     }
 `;
 
-const Pagination = ({ page, prev, next }) => {
+const Pagination = ({ page, prev, next, totalPage }) => {
 
     return (
         <div css={paginationStyle}>
@@ -27,7 +27,7 @@ const Pagination = ({ page, prev, next }) => {
                 : <button className="prev"
                         onClick={prev}>&lt;</button>}
             <p>{page + 1}</p>
-            {page == 4 ? null
+            {totalPage == page ? null
                 : <button className="next"
                           onClick={next}>&gt;</button>}
         </div>
