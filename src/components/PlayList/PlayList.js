@@ -3,6 +3,7 @@ import { css } from '@emotion/core';
 import SearchContext from '../../context/searchContext';
 import VideoThumb from '../VidoeThumb/VideoThumb';
 import Pagination from '../Pagination/Pagination';
+import Loader from '../Loader/Loader';
 
 const playlistStyle = css`
     flex-basis: 33%;
@@ -28,7 +29,7 @@ function pagination(items, pageNum) {
 }
 
 const PlayList = () => {
-    const { videos, setCurrentVideo } = useContext(SearchContext);
+    const { videos, setCurrentVideo, videosLoading } = useContext(SearchContext);
     const [page, setPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
 
@@ -40,6 +41,10 @@ const PlayList = () => {
 
     function renderVideoList(list) {
         const itemsArray = pagination(list, page);
+
+        if (videosLoading) {
+            return <Loader />;
+        }
 
         if (videos.length == 0) {
             return <p>Your playlist is empty!</p>;

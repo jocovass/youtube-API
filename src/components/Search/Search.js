@@ -37,7 +37,7 @@ function createVideosArray(videos) {
 const Search = () => {
     const [value, setValue] = useState('');
     const appContext = useContext(AppContext);
-    const searchContext = useContext(SearchContext);
+    const { setVideosLoading, setPlaylist } = useContext(SearchContext);
 
     const onChangeHandler = (event) => {
         setValue(event.target.value);
@@ -45,6 +45,7 @@ const Search = () => {
 
     const sumbitHandler = (event) => {
         event.preventDefault();
+        setVideosLoading();
         youtube.get('/search', {
                 params: {
                     part: 'snippet',
@@ -54,11 +55,13 @@ const Search = () => {
                 }
         })
         .then(resp => {
-            console.log(resp)
+            setValue('');
+            setVideosLoading();
             const videos = createVideosArray(resp.data.items);
-            searchContext.setPlaylist(videos);
+            setPlaylist(videos);
         })
         .catch(err => {
+            setVideosLoading();
             const errorCode = err.message.slice(-3);
             appContext.setError(errorCode);
             appContext.setErrorMessage(err.message);

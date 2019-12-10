@@ -21,11 +21,18 @@ class App extends Component {
         this.setCurrentVideo = (video) => {
             this.setState({ currentVideo: video });
         };
+        this.setVideosLoading = () => {
+            this.setState(prevState => {
+                return {videosLoading: !prevState.videosLoading};
+            });
+        };
         this.state = {
             error: app.error,
             errorMessage: app.errerMessage,
             videos: search.videos,
             currentVideo: search.currentVideo,
+            videosLoading: search.videosLoading,
+            setVideosLoading: this.setVideosLoading,
             setCurrentVideo: this.setCurrentVideo,
             setPlaylist: this.setPlaylist,
             setError: this.setError,
@@ -41,6 +48,8 @@ class App extends Component {
                     videos: this.state.videos,
                     setPlaylist: this.state.setPlaylist,
                     currentVideo: this.state.currentVideo,
+                    videosLoading: this.state.videosLoading,
+                    setVideosLoading: this.state.setVideosLoading,
                     setCurrentVideo: this.state.setCurrentVideo,
                 }}>
                     <Header />
