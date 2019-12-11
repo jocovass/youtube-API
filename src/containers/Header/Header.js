@@ -14,6 +14,7 @@ const headerStyle = css`
 `;
 
 class Header extends Component {
+
     render() {
         return (
             <header css={headerStyle}>

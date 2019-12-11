@@ -1,43 +1,44 @@
 import React from 'react';
-import { Link } from '@reach/router';
 import { css } from '@emotion/core';
+import Likes from '../Likes/Likes';
 
 const btnStyle = css`
-    text-decoration: none;
+    background: none;
+    border: none;
     color: #fff;
     font-size: 1.1rem;
     text-transform: uppercase;
-    display: inline-block;
     padding: .3rem .6rem;
     border-radius: 4px;
-    transition: all .15s ease-in-out;
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+    
+`;
 
-    &:hover {
+const navStyle = css`
+    list-style: none;
+    position: relative;
+
+    li:hover button {
         background-color: rgba(255,255,255, .4);
         color: #000;
         box-shadow: 0 5px 10px rgba(0,0,0,.3);
     }
 
-    &:active {
-        transform: translateY(1px);
-    }
-
-    &:not(:last-of-type) {
-        margin-right: 1rem;
+    li:hover .likes {
+        display: block;
     }
 `;
 
 const Navigation = () => {
     return (
         <nav>
-            <Link to="/"
-                css={btnStyle}>
-                Home
-            </Link>
-            <Link to="/likes"
-                css={btnStyle}>
-                Likes
-            </Link>
+            <ul css={navStyle}>
+                <li>
+                    <button css={btnStyle}>Likes &darr;</button>
+                    <Likes />
+                </li>
+            </ul>
         </nav>
     );
 }

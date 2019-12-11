@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { navigate }  from '@reach/router'; 
 import { css } from '@emotion/core';
 import youtube from '../../axios';
@@ -15,7 +15,15 @@ const inputStyle = css`
     padding: .2rem 1rem;
 `;
 
-function createVideosArray(videos) {
+function isLiked(videoId, likedVideos) {
+    if (likedVideos.length == 0) return false;
+    const isLiked = likedVideos.filter(function checkLikes(val) {
+        return val.videoId == videoId;
+    });
+    return isLiked.length != 0;
+}
+
+function createVideosArray(videos, likedVideos) {
     const newArray = videos.reduce((acc, val) => {
         const video = {
             videoId: val.id.videoId,
@@ -24,6 +32,7 @@ function createVideosArray(videos) {
             thumbnail: val.snippet.thumbnails.default.url,
             width: val.snippet.thumbnails.default.width,
             height: val.snippet.thumbnails.default.height,
+            liked: isLiked(val.id.videoId, likedVideos),
         };
 
         acc.push(video);
@@ -37,7 +46,12 @@ function createVideosArray(videos) {
 const Search = () => {
     const [value, setValue] = useState('');
     const appContext = useContext(AppContext);
-    const { setVideosLoading, setPlaylist } = useContext(SearchContext);
+    const { videos, likedVideos, setVideosLoading, setPlaylist, setLikedVideos } = useContext(SearchContext);
+
+    useEffect(function getLikes() {
+        const likes = JSON.parse(localStorage.getItem('likes')) || [];
+        setLikedVideos(likes);
+    }, [videos])
 
     const onChangeHandler = (event) => {
         setValue(event.target.value);
@@ -57,7 +71,7 @@ const Search = () => {
         .then(resp => {
             setValue('');
             setVideosLoading();
-            const videos = createVideosArray(resp.data.items);
+            const videos = createVideosArray(resp.data.items, likedVideos);
             setPlaylist(videos);
         })
         .catch(err => {

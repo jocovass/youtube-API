@@ -26,12 +26,18 @@ class App extends Component {
                 return {videosLoading: !prevState.videosLoading};
             });
         };
+        this.setLikedVideos = (likedVideos) => {
+            this.setState({ likedVideos });
+            localStorage.setItem('likes', JSON.stringify(likedVideos));
+        } 
         this.state = {
             error: app.error,
             errorMessage: app.errerMessage,
             videos: search.videos,
             currentVideo: search.currentVideo,
             videosLoading: search.videosLoading,
+            likedVideos: search.likedVideos,
+            setLikedVideos: this.setLikedVideos,
             setVideosLoading: this.setVideosLoading,
             setCurrentVideo: this.setCurrentVideo,
             setPlaylist: this.setPlaylist,
@@ -49,6 +55,8 @@ class App extends Component {
                     setPlaylist: this.state.setPlaylist,
                     currentVideo: this.state.currentVideo,
                     videosLoading: this.state.videosLoading,
+                    likedVideos: this.state.likedVideos,
+                    setLikedVideos: this.state.setLikedVideos,
                     setVideosLoading: this.state.setVideosLoading,
                     setCurrentVideo: this.state.setCurrentVideo,
                 }}>
